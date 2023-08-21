@@ -12,6 +12,7 @@ var _httpErrors = _interopRequireDefault(require("http-errors"));
 var _config = _interopRequireDefault(require("./configs/config"));
 var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 var _index = _interopRequireDefault(require("./routes/index"));
+var _messageroute = _interopRequireDefault(require("./routes/messageroute"));
 var app = (0, _express["default"])();
 
 // view engine setup
@@ -25,6 +26,7 @@ app.use(_express["default"].urlencoded({
 app.use((0, _cookieParser["default"])());
 app.use(_express["default"]["static"](_path["default"].join(__dirname, '../public')));
 app.use('/', _index["default"]);
+app.use('/api', _messageroute["default"]);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
