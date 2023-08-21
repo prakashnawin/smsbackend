@@ -2,9 +2,6 @@ const createmessage = async (req, res) => {
   
   const { messageMedium, sender, receiver, messagebody } = req.body;
 
-// console.log(messagebody)
-
-
   try {
     if (messageMedium && sender && receiver && messagebody) {
       if (messageMedium!== "SMS" && messageMedium!== "whatsapp")
