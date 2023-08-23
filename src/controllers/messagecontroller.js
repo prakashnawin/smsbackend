@@ -1,7 +1,5 @@
-const accountSid = 'YOUR_TWILIO_ACCOUNT_SID';
-const authToken = 'YOUR_TWILIO_AUTH_TOKEN';
-
-const client = require('twilio')(accountSid)(authToken);
+const twilio = require('twilio')
+const client = new twilio(process.env.TWILIO_ACCOUNT_SID,process.env.TWILIO_AUTH_TOKEN);
 
 const sendmessage = async (req, res) => {
 
@@ -10,10 +8,11 @@ sendTextMessage(req.body);
 };
 
 const sendTextMessage = (messageData)=>{
+
   console.log(messageData);
   client.messages.create({
     body: messagebody,
-    from: sendernumber,
+    from: senderNumber,
     to:  receiverNumber
     
   })

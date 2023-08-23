@@ -4,7 +4,8 @@ import express from 'express';
 import createError from 'http-errors';
 import Config from './configs/config';
 import cookieParser from 'cookie-parser';
-
+import dotenv from 'dotenv';
+dotenv.config();
 // import indexRouter from './routes/index';
 import messageRouter from './routes/messageroute';
 
