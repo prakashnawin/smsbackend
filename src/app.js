@@ -5,7 +5,7 @@ import createError from 'http-errors';
 import Config from './configs/config';
 import cookieParser from 'cookie-parser';
 
-import indexRouter from './routes/index';
+// import indexRouter from './routes/index';
 import messageRouter from './routes/messageroute';
 
 var app = express();
@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.use('/', indexRouter);
+// app.use('/', indexRouter);
 app.use('/api', messageRouter);
 
 // catch 404 and forward to error handler
