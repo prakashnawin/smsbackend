@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { sendmessage } from "../controllers/messagecontroller";
+import { sendmessage,deliveryStatus } from "../controllers/messagecontroller";
 import validation from "../validation/message.validation";
 const router = Router();
 
 router.route("/sms").post(validation, sendmessage);
-router.post('/sms/status',(req,res)=>{
-   console.log(req.body);
-})
+
+router.route('/sms/status').post(deliveryStatus);
+
 module.exports = router;
