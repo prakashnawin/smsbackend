@@ -5,10 +5,11 @@ import createError from 'http-errors';
 import Config from './configs/config';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import { connectDb } from './util/database_connection';
 dotenv.config();
 // import indexRouter from './routes/index';
 import messageRouter from './routes/messageroute';
-
+connectDb();
 var app = express();
 
 // view engine setup
