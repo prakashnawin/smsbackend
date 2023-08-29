@@ -1,8 +1,8 @@
 
 const mongoose = require('mongoose');
 
-// const url = process.env.Mongo_URL;
-const url ="mongodb+srv://JatinGarg:UFAiYRTbHvj2ezPH@cluster0.vb0rv4n.mongodb.net/sms_app";
+const url = process.env.Mongo_URL;
+
 const connectDb = async () => {
   try {
     const connect = await mongoose.connect(url, {
@@ -16,7 +16,6 @@ const connectDb = async () => {
   }
 };
 
-// connectDb();
 
 const sms_clients_Schema = mongoose.Schema(
     {

@@ -11,7 +11,7 @@ const smsResponseSchema = Joi.object({
 const validation = (req, res, next) => {
   const { error } = smsResponseSchema.validate(req.body);
   if (error) {
-    console.log("hello");
+    
     return res.status(400).json({ error: error.details[0].message });
   }
 
