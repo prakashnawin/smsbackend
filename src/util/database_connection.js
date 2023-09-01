@@ -39,6 +39,7 @@ const sms_clients_Schema = mongoose.Schema(
         type: String,
         required: true,
       },
+      
       sms_client_providers:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"providers",
@@ -78,6 +79,11 @@ const sms_clients_Schema = mongoose.Schema(
       token: {
         type: String,
         required: true,
+      },
+      provider:{
+        type :mongoose.Schema.Types.ObjectId,
+        ref:"providers",
+        required:true,
       },
       client:{
         type :mongoose.Schema.Types.ObjectId,

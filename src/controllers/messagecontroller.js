@@ -1,9 +1,10 @@
-import { sendTextMessage } from "../util/provider";
 import {
   sms_client_numbers,
   providers,
   sms_clients,
 } from "../util/database_connection";
+import { sendTextMessage } from "./provider_controller";
+let data = {};
 
 const sendmessage = async (req, res) => {
   if (req.body.messageMedium === "sms") {
@@ -12,9 +13,9 @@ const sendmessage = async (req, res) => {
     });
     const client = await sms_clients.findOne({ _id: clientNumber.client });
     const provider = await providers.findOne({
-      _id: client.sms_client_providers,
+      _id: clientNumber.provider,
     });
-    const data = {
+    data = {
       sid: clientNumber.sid,
       token: clientNumber.token,
       sms_client_delivery_url: client.sms_client_delivery_url,
@@ -23,16 +24,29 @@ const sendmessage = async (req, res) => {
     };
 
     sendTextMessage(data, req.body);
-  } else if (req.body.messageMedium === "whatsapp") console.log("hello");
+    // twilioSendTextMessage(data, req.body);
+  } else if (req.body.messageMedium === "whatsapp")
+    console.log("hello Whatsapp");
 
   // sendTextMessage(sender_number?.sid, sender_number?.token, req.body);
-
   // res.status(200).json(sender_number);
 };
 
-const deliveryStatus = (req, res) => {
-  console.log(req.body);
-  res.status(200).json(req.body);
+const deliveryStatus = (req, res, next) => {
+  console.log(data.sms_client_delivery_url);
+  axios
+  .post(data.sms_client_delivery_url, req.body)
+  .then((response) => {
+    console.log("Response from server:", response.data);
+  })
+  .catch((error) => {
+    console.error("Error sending request:", error);
+  });
+  next();
 };
+const testFunction = (req, res) => {
+  console.log(req.body);
 
-module.exports = { sendmessage, deliveryStatus };
+ 
+};
+module.exports = { sendmessage, deliveryStatus, testFunction };
