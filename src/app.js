@@ -5,7 +5,7 @@ import createError from 'http-errors';
 import Config from './configs/config';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-import { connectDb } from './util/database_connection';
+import { connectDb,request_on_server } from './util/database_connection';
 dotenv.config();
 // import indexRouter from './routes/index';
 import messageRouter from './routes/messageroute';
@@ -22,7 +22,27 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
-// app.use('/', indexRouter);
+
+
+app.use(async (req, res, next) => {
+  const { url, body } = req;
+  // Log the request
+  const logEntry = new request_on_server({
+    url,
+    body,
+    timestamp: new Date(),
+  });
+  try {
+    await logEntry.save();
+  } catch (error) {
+    console.error('Error saving request log:', error);
+  }
+// console.log(logEntry);
+next();
+});
+
+
+
 app.use('/api', messageRouter);
 
 // catch 404 and forward to error handler

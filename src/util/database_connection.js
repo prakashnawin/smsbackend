@@ -1,4 +1,5 @@
 
+const { object } = require('joi');
 const mongoose = require('mongoose');
 
 const url = process.env.Mongo_URL;
@@ -15,8 +16,6 @@ const connectDb = async () => {
     process.exit(1);
   }
 };
-
-
 const sms_clients_Schema = mongoose.Schema(
     {
         sms_client_firstname: {
@@ -94,5 +93,26 @@ const sms_clients_Schema = mongoose.Schema(
   
   const sms_client_numbers = mongoose.model('sms_client_numbers', sms_client_numbers_Schema);
   
-  module.exports = { connectDb, sms_clients, providers, sms_client_numbers };
+  const request_on_server_Schema = mongoose.Schema(
+    {
+        url: {
+        type: String,
+        required: true,
+      },
+      body: {
+        type: Object,
+        required: true,
+      },
+
+      timestamp: {
+        type: Date,
+        required : true,
+      }
+
+     } );
+  
+  const request_on_server = mongoose.model('request_on_server', request_on_server_Schema);
+
+
+  module.exports = { connectDb, sms_clients, providers, sms_client_numbers,request_on_server };
 
